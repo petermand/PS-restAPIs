@@ -1,22 +1,9 @@
-var express = require('express'),
-    mongoose = require('mongoose'),
-    bodyParser = require('body-parser');
+ const express = require('express');
 
 
-var db = mongoose.connect('mongodb://localhost/bookAPI');
+ var routes = function(Book) {
 
-var Book = require('./models/bookModel');
-
-var app = express();
-
-var port = process.env.PORT || 3000;
-
-app.use(bodyParser.urlencoded({extended:true}));
-app.use(bodyParser.json ());
-
-
-
-var bookRouter = express.Router();
+    var bookRouter = express.Router();
 
 bookRouter.route('/Books')
     .post(function(req, res){
@@ -54,14 +41,6 @@ bookRouter.route('/Books/:bookId')
         });
     });
 
-app.use('/api', bookRouter);
+ };
 
-
-
-app.get('/', function(req, res){
-    res.send('welcome to my API!');
-});
-
-app.listen(port, function(){
-    console.log('Gulp is running my app on  PORT: ' + port);
-});
+ module.exports = routes;
